@@ -101,10 +101,10 @@ int	check_walls(t_map *map)
 void	parse_map(t_map *map, const char *path)
 {
 	char	*line;
-	int		fd;
+	int	fd;
 	size_t	width;
 	size_t	tall;
-	int		y;
+	size_t	y;
 
 	tall = count_lines(path);
 	if (tall < 3)
