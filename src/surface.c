@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:29 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 01:18:23 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/16 01:34:16 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,9 @@
 @param data -> t_mlx_data structure
 @param x -> the X position of the upper-left pixel of the rectangle
 @param y -> the Y position of the upper-left pixel of the rectangle
-@param w -> the width of the rectangle
-@param h -> the height of the rectangle
-@param color -> the value of color
 @return t_img -> the rectangle structure that has been generated
 */
-t_img	draw_rect(t_mlx_data d, size_t x, size_t y, size_t w, size_t h, t_ui c)
+t_img	draw_rect(t_mlx_data d, size_t x, size_t y)
 {
 	t_img	img;
 	size_t	pos_y;
@@ -30,16 +27,16 @@ t_img	draw_rect(t_mlx_data d, size_t x, size_t y, size_t w, size_t h, t_ui c)
 
 	img.x = x;
 	img.y = y;
-	img.w = w;
-	img.h = h;
-	img.image = mlx_new_image(d.mlxp, w, h);
+	img.w = d.w;
+	img.h = d.h;
+	img.image = mlx_new_image(d.mlxp, d.w, d.h);
 	img.data = mlx_get_data_addr(img.image, &img.bpp, &img.l_len, &img.endian);
-	img.color = mlx_get_color_value(d.mlxp, c);
+	img.color = mlx_get_color_value(d.mlxp, d.color);
 	pos_y = 0;
-	while (pos_y < h)
+	while (pos_y < d.h)
 	{
 		pos_x = 0;
-		while (pos_x < w)
+		while (pos_x < d.w)
 		{
 			pixel = (pos_y * img.l_len) + (pos_x * 4);
 			img.data[pixel] = img.color;

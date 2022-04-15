@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:27 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 01:10:48 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/16 01:40:19 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	generate_items(t_game *g)
 	char	c;
 
 	get_item_pos(g, 'P', &x, &y);
-	*g->s_img_ply = draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/fat.xpm");
+	*g->ply_img = draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/fat.xpm");
 	get_item_pos(g, 'E', &x, &y);
 	draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/hospital.xpm");
 	y = 0;
@@ -117,11 +117,14 @@ int	main(void)
 	}
 	d.mlxp = mlx_init();
 	d.winp = mlx_new_window(d.mlxp, map.w * 50, map.h * 50, "Burger King");
-	background = draw_rect(d, 0, 0, map.w * 50, map.h * 50, 0x003498db);
+	d.color = 0x003498db;
+	d.w = map.w * 50;
+	d.h = map.h * 50;
+	background = draw_rect(d, 0, 0);
 	map.s_img = &background;
 	stream.mlxdat = &d;
 	stream.s_map = &map;
-	stream.s_img_ply = &player;
+	stream.ply_img = &player;
 	stream.pickups = 0;
 	stream.moves = 0;
 	generate_items(&stream);

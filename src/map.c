@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:26 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 01:19:52 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/16 01:36:35 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,13 +141,13 @@ void	parse_map(t_map *map, const char *path)
 			width = ft_strlen(line);
 		if (width != ft_strlen(line) || width < 3)
 		{
-			free_map(map, "The map in the .ber file must be a rectangle! Aborting.");
+			free_map(map, "Map must be a rectangle! Aborting.");
 			break ;
 		}
 		map->map[y] = ft_strdup(line);
 		if (!map->map[y])
 		{
-			free_map(map, "An unknown erorr has occured with memory allocation! Aborting.");
+			free_map(map, "A memory error has occured! Aborting.");
 			break ;
 		}
 		y++;
@@ -157,15 +157,15 @@ void	parse_map(t_map *map, const char *path)
 	map->h = tall;
 	if (check_walls(map) == 0)
 	{
-		free_map(map, "Map must be surrounded only by walls (1) in the .ber file! Aborting.");
+		free_map(map, "Map must be surrounded by walls only! Aborting.");
 		return ;
 	}
 	map->burgers = count_items(map, 'C');
 	if (map->burgers <= 0)
-		free_map(map, "You need to put at least 1 burger (C) in the .ber file! Aborting.");
+		free_map(map, "Map need at least 1 burger! Aborting.");
 	if (count_items(map, 'E') <= 0)
-		free_map(map, "You need to put at least 1 exit (E) in the .ber file! Aborting.");
+		free_map(map, "Map need at least 1 exit! Aborting.");
 	if (count_items(map, 'P') <= 0)
-		free_map(map, "You need to put at least 1 start position (P) in the .ber file! Aborting.");
+		free_map(map, "Map need at least 1 start pos! Aborting.");
 	close(fd);
 }
