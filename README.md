@@ -2,6 +2,13 @@
 So Long is a 2D game made in C for School42 !  
 The game is pretty awkful so be prepared if you want to play it.
 
+**WARNING**
+---
+You MUST be under **MacOS** or **Linux** to run this game.  
+MiniLibX is not available on **Windows**.
+
+---
+
 To compile it, use. 
 ```
 make
