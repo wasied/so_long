@@ -12,3 +12,7 @@ OBJ		=	$(SRC:.c=.o)
 
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) -L$(MLX) -l$(MLX) -framework OpenGL -framework AppKit -o $(NAME)
+
+fclean:
+	rm -rf */*.o
+	rm -f so_long

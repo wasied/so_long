@@ -1,28 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/16 00:54:17 by mpeharpr          #+#    #+#             */
+/*   Updated: 2022/04/16 01:13:47 by mpeharpr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
 /* C Libraries */
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <math.h>
 
 /* Our libraries */
-#include "mlx.h"
-#include "../get_next_line/get_next_line.h"
+# include "mlx.h"
+# include "../get_next_line/get_next_line.h"
 
 /* Our structures */
 typedef struct s_mlx_data {
-	void	*mlx_ptr;
-	void	*win_ptr;
+	void	*mlxp;
+	void	*winp;
 }	t_mlx_data;
 
 typedef struct s_img {
 	void			*image;
 	char			*data;
 	int				bpp;
-	int				line_len;
+	int				l_len;
 	int				endian;
 	unsigned int	color;
 	size_t			x;
@@ -42,10 +54,12 @@ typedef struct s_map {
 typedef struct s_game {
 	t_img		*s_img_ply;
 	t_map		*s_map;
-	t_mlx_data	*s_mlx_data;
+	t_mlx_data	*mlxdat;
 	size_t		pickups;
 	size_t		moves;
 }	t_game;
+
+typedef unsigned int	t_ui; /* norminette :( */
 
 /* Our prototypes */
 
@@ -55,8 +69,8 @@ void	get_item_pos(t_game *vars, char search, size_t *x_ptr, size_t *y_ptr);
 void	generate_items(t_game *vars);
 
 /*** surface.c ***/
-t_img	draw_rect(t_mlx_data data, size_t x, size_t y, size_t w, size_t h, unsigned int color);
-t_img	draw_texture(t_mlx_data data, size_t x, size_t y, char *path);
+t_img	draw_rect(t_mlx_data d, size_t x, size_t y, size_t w, size_t h, t_ui c);
+t_img	draw_mat(t_mlx_data d, size_t x, size_t y, char *path);
 
 /*** map.c ***/
 void	parse_map(t_map *map, const char *path);

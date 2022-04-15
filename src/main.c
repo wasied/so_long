@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/16 00:54:27 by mpeharpr          #+#    #+#             */
+/*   Updated: 2022/04/16 01:10:48 by mpeharpr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 /* A function to properly stop the game 
@@ -6,7 +18,7 @@
 int	stop_game(t_game *vars)
 {
 	free_map(vars->s_map, "Thanks for playing The Burger King!");
-	mlx_destroy_window(vars->s_mlx_data->mlx_ptr, vars->s_mlx_data->win_ptr);
+	mlx_destroy_window(vars->mlxdat->mlxp, vars->mlxdat->winp);
 	return (0);
 }
 
@@ -17,13 +29,13 @@ int	stop_game(t_game *vars)
 int	button_pressed(int keycode, t_game *vars)
 {
 	if (keycode == 6)
-		player_move(vars, 1); // up
+		player_move(vars, 1);
 	else if (keycode == 1)
-		player_move(vars, 3); // down
+		player_move(vars, 3);
 	else if (keycode == 0)
-		player_move(vars, 0); // left
+		player_move(vars, 0);
 	else if (keycode == 2)
-		player_move(vars, 2); // right
+		player_move(vars, 2);
 	else if (keycode == 53)
 		stop_game(vars);
 	return (0);
@@ -50,7 +62,7 @@ void	get_item_pos(t_game *vars, char search, size_t *x_ptr, size_t *y_ptr)
 			{
 				*x_ptr = x;
 				*y_ptr = y;
-				break;
+				break ;
 			}
 			x++;
 		}
@@ -59,31 +71,29 @@ void	get_item_pos(t_game *vars, char search, size_t *x_ptr, size_t *y_ptr)
 }
 
 /* Generate burgers, walls & exits 
-@param vars -> pointing to the t_game structure
+@param g -> pointing to the t_game structure
 */
-void generate_items(t_game *vars)
+void	generate_items(t_game *g)
 {
 	size_t	x;
 	size_t	y;
 	char	c;
 
-	get_item_pos(vars, 'P', &x, &y);
-	*vars->s_img_ply = draw_texture(*vars->s_mlx_data, x * 50, y * 50, "./assets/fat.xpm");
-
-	get_item_pos(vars, 'E', &x, &y);
-	draw_texture(*vars->s_mlx_data, x * 50, y * 50, "./assets/hospital.xpm");
-
+	get_item_pos(g, 'P', &x, &y);
+	*g->s_img_ply = draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/fat.xpm");
+	get_item_pos(g, 'E', &x, &y);
+	draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/hospital.xpm");
 	y = 0;
-	while (y < vars->s_map->h)
+	while (y < g->s_map->h)
 	{
 		x = 0;
-		while (x < vars->s_map->w)
+		while (x < g->s_map->w)
 		{
-			c = vars->s_map->map[y][x];
+			c = g->s_map->map[y][x];
 			if (c == '1')
-				draw_texture(*vars->s_mlx_data, x * 50, y * 50, "./assets/cucumber.xpm");
+				draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/cucumber.xpm");
 			else if (c == 'C')
-				draw_texture(*vars->s_mlx_data, x * 50, y * 50, "./assets/burger.xpm");
+				draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/burger.xpm");
 			x++;
 		}
 		y++;
@@ -91,9 +101,9 @@ void generate_items(t_game *vars)
 }
 
 /* The main function */
-int main(void)
+int	main(void)
 {
-	t_mlx_data 		data;
+	t_mlx_data		d;
 	t_map			map;
 	t_img			player;
 	t_img			background;
@@ -105,22 +115,18 @@ int main(void)
 		printf("Map is somehow invalid!");
 		return (0);
 	}
-
-	data.mlx_ptr = mlx_init();
-	data.win_ptr = mlx_new_window(data.mlx_ptr, map.w * 50, map.h * 50, "The Burger King!");
-	background = draw_rect(data, 0, 0, map.w * 50, map.h * 50, 0x003498db);
-
+	d.mlxp = mlx_init();
+	d.winp = mlx_new_window(d.mlxp, map.w * 50, map.h * 50, "Burger King");
+	background = draw_rect(d, 0, 0, map.w * 50, map.h * 50, 0x003498db);
 	map.s_img = &background;
-	stream.s_mlx_data = &data;
+	stream.mlxdat = &d;
 	stream.s_map = &map;
 	stream.s_img_ply = &player;
 	stream.pickups = 0;
 	stream.moves = 0;
-
 	generate_items(&stream);
-	mlx_hook(data.win_ptr, 2, 1, button_pressed, &stream);
-	mlx_hook(data.win_ptr, 17, 1, stop_game, &stream);
-	mlx_loop(data.mlx_ptr);
-
-    return (0);
+	mlx_hook(d.winp, 2, 1, button_pressed, &stream);
+	mlx_hook(d.winp, 17, 1, stop_game, &stream);
+	mlx_loop(d.mlxp);
+	return (0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   math.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/16 00:54:25 by mpeharpr          #+#    #+#             */
+/*   Updated: 2022/04/16 00:55:11 by mpeharpr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 /* Get the minimum value between 2 values
@@ -5,7 +17,7 @@
 @param dos -> The second value
 @return int: the minimum value
 */
-int	get_min(int uno, int dos) 
+int	get_min(int uno, int dos)
 {
 	if (uno > dos)
 		return (uno);
@@ -30,7 +42,7 @@ int	get_max(int uno, int dos)
 @param max -> The maximum value
 @return int: the clamped value
 */
-int clamp(int value, int min, int max)
+int	clamp(int value, int min, int max)
 {	
 	return (get_max(get_min(value, min), max));
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   surface.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/16 00:54:29 by mpeharpr          #+#    #+#             */
+/*   Updated: 2022/04/16 01:18:23 by mpeharpr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 /* Draw a rectangle with a specific image
@@ -9,28 +21,36 @@
 @param color -> the value of color
 @return t_img -> the rectangle structure that has been generated
 */
-t_img	draw_rect(t_mlx_data data, size_t x, size_t y, size_t w, size_t h, unsigned int color)
+t_img	draw_rect(t_mlx_data d, size_t x, size_t y, size_t w, size_t h, t_ui c)
 {
 	t_img	img;
+	size_t	pos_y;
+	size_t	pos_x;
+	size_t	pixel;
 
 	img.x = x;
 	img.y = y;
 	img.w = w;
 	img.h = h;
-	img.image = mlx_new_image(data.mlx_ptr, w, h);
-	img.data = mlx_get_data_addr(img.image, &img.bpp, &img.line_len, &img.endian);
-	img.color = mlx_get_color_value(data.mlx_ptr, color);
-	for (size_t pos_y = 0; pos_y < h; ++pos_y) {
-		for (size_t pos_x = 0; pos_x < w; ++pos_x) {
-			size_t pixel = (pos_y * img.line_len) + (pos_x * 4);
-
+	img.image = mlx_new_image(d.mlxp, w, h);
+	img.data = mlx_get_data_addr(img.image, &img.bpp, &img.l_len, &img.endian);
+	img.color = mlx_get_color_value(d.mlxp, c);
+	pos_y = 0;
+	while (pos_y < h)
+	{
+		pos_x = 0;
+		while (pos_x < w)
+		{
+			pixel = (pos_y * img.l_len) + (pos_x * 4);
 			img.data[pixel] = img.color;
 			img.data[pixel + 1] = img.color >> 8;
 			img.data[pixel + 2] = img.color >> 16;
 			img.data[pixel + 3] = img.color >> 24;
+			pos_x++;
 		}
+		pos_y++;
 	}
-	mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, img.image, x, y);
+	mlx_put_image_to_window(d.mlxp, d.winp, img.image, x, y);
 	return (img);
 }
 
@@ -41,18 +61,18 @@ t_img	draw_rect(t_mlx_data data, size_t x, size_t y, size_t w, size_t h, unsigne
 @param path -> the relative path of the texture
 @return t_img -> the rectangle structure that has been generated
 */
-t_img	draw_texture(t_mlx_data data, size_t x, size_t y, char *path)
+t_img	draw_mat(t_mlx_data data, size_t x, size_t y, char *path)
 {
-	t_img	texture;
+	t_img	mat;
 	int		w;
 
 	w = 0;
-	texture.image = mlx_xpm_file_to_image(data.mlx_ptr, path, &w, &w);
-	texture.data = mlx_get_data_addr(texture.image, &texture.bpp, &texture.line_len, &texture.endian);
-	mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, texture.image, x, y);
-	texture.x = x;
-	texture.y = y;
-	texture.w = w;
-	texture.h = w;
-	return (texture);
+	mat.image = mlx_xpm_file_to_image(data.mlxp, path, &w, &w);
+	mat.data = mlx_get_data_addr(mat.image, &mat.bpp, &mat.l_len, &mat.endian);
+	mlx_put_image_to_window(data.mlxp, data.winp, mat.image, x, y);
+	mat.x = x;
+	mat.y = y;
+	mat.w = w;
+	mat.h = w;
+	return (mat);
 }

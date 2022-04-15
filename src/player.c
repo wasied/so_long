@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/16 00:54:21 by mpeharpr          #+#    #+#             */
+/*   Updated: 2022/04/16 01:21:39 by mpeharpr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 /* Called when a player is on a pickup item (=> burger or exit)
@@ -71,7 +83,6 @@ void	player_move(t_game *vars, int direction)
 	ply = vars->s_img_ply;
 	bx = ply->x;
 	by = ply->y;
-
 	if (direction == 0)
 		ply->x = clamp(ply->x - 50, 50, (vars->s_map->w - 2) * 50);
 	else if (direction == 1)
@@ -80,34 +91,29 @@ void	player_move(t_game *vars, int direction)
 		ply->x = clamp(ply->x + 50, 50, (vars->s_map->w - 2) * 50);
 	else if (direction == 3)
 		ply->y = clamp(ply->y + 50, 50, (vars->s_map->h - 2) * 50);
-	
 	i = can_player_go(vars, ply->x / 50, ply->y / 50);
 	if (i == 0)
 	{
 		ply->x = bx;
 		ply->y = by;
-		return;
+		return ;
 	}
-
 	vars->moves++;
 	printf("Total amount of moves: %zu\n", vars->moves);
-
 	overwrite = 1;
 	if (i == 2 || i == 3)
 		overwrite = pickup_item(vars, i);
-
-	if (i != 1 && overwrite == 1) // If the case has something on it, replace before placing the player
+	if (i != 1 && overwrite == 1)
 	{	
-		draw_rect(*vars->s_mlx_data, ply->x, ply->y, ply->w, ply->h, vars->s_map->s_img->color);
+		draw_rect(*vars->mlxdat, ply->x, ply->y, ply->w, ply->h, vars->s_map->s_img->color);
 		vars->s_map->map[ply->y / 50][ply->x / 50] = '0';
 	}
-
 	if (vars->s_map->map[by / 50][bx / 50] == 'E')
 	{
-		draw_rect(*vars->s_mlx_data, bx, by, ply->w, ply->h, vars->s_map->s_img->color);
-		draw_texture(*vars->s_mlx_data, bx, by, "./assets/hospital.xpm");
+		draw_rect(*vars->mlxdat, bx, by, ply->w, ply->h, vars->s_map->s_img->color);
+		draw_mat(*vars->mlxdat, bx, by, "./assets/hospital.xpm");
 	}
 	else
-		draw_rect(*vars->s_mlx_data, bx, by, ply->w, ply->h, vars->s_map->s_img->color);
-	*vars->s_img_ply = draw_texture(*vars->s_mlx_data, ply->x, ply->y, "./assets/fat.xpm");
+		draw_rect(*vars->mlxdat, bx, by, ply->w, ply->h, vars->s_map->s_img->color);
+	*vars->s_img_ply = draw_mat(*vars->mlxdat, ply->x, ply->y, "./assets/fat.xpm");
 }

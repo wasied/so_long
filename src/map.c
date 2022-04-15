@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/16 00:54:26 by mpeharpr          #+#    #+#             */
+/*   Updated: 2022/04/16 01:19:52 by mpeharpr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 /* Count the amount of lines in a file
@@ -101,7 +113,7 @@ int	check_walls(t_map *map)
 void	parse_map(t_map *map, const char *path)
 {
 	char	*line;
-	int	fd;
+	int		fd;
 	size_t	width;
 	size_t	tall;
 	size_t	y;
@@ -110,15 +122,12 @@ void	parse_map(t_map *map, const char *path)
 	if (tall < 3)
 		return ;
 	width = 0;
-
 	map->map = malloc((tall + 1) * sizeof(char *));
 	if (!map->map)
 		return ;
-
 	y = 0;
 	while (y <= tall)
 		map->map[y++] = NULL;
-
 	y = 0;
 	fd = open(path, O_RDONLY);
 	while (fd > -1)
@@ -126,10 +135,8 @@ void	parse_map(t_map *map, const char *path)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-
 		if (line[ft_strlen(line) - 1] == '\n')
-            line[ft_strlen(line) - 1] = '\0';
-
+			line[ft_strlen(line) - 1] = '\0';
 		if (!width)
 			width = ft_strlen(line);
 		if (width != ft_strlen(line) || width < 3)
@@ -137,7 +144,6 @@ void	parse_map(t_map *map, const char *path)
 			free_map(map, "The map in the .ber file must be a rectangle! Aborting.");
 			break ;
 		}
-
 		map->map[y] = ft_strdup(line);
 		if (!map->map[y])
 		{
@@ -149,13 +155,11 @@ void	parse_map(t_map *map, const char *path)
 	map->map[y] = NULL;
 	map->w = width;
 	map->h = tall;
-
 	if (check_walls(map) == 0)
 	{
 		free_map(map, "Map must be surrounded only by walls (1) in the .ber file! Aborting.");
 		return ;
 	}
-
 	map->burgers = count_items(map, 'C');
 	if (map->burgers <= 0)
 		free_map(map, "You need to put at least 1 burger (C) in the .ber file! Aborting.");
