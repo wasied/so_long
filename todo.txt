@@ -1,4 +1,3 @@
--> Use our own printf project 
 -> Use error messages as written in the subject
 -> Image freeing
 -> Testing leaks & replacing malloc by NULL

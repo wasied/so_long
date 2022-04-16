@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:26 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 02:42:38 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/16 22:26:26 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	free_map(t_map *map, char *message)
 	while (map->map[i])
 		free(map->map[i++]);
 	free(map->map);
-	printf("%s\n", message);
+	ft_printf("%s\n", message);
 	exit(0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:21 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 01:59:21 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/16 22:27:35 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ int	pickup_item(t_game *vars, int itemid)
 	if (itemid == 2)
 	{
 		vars->pickups++;
-		printf("You picked up a burger !\n");
+		ft_printf("You picked up a burger !\n");
 	}
 	else if (itemid == 3)
 	{
 		if (vars->pickups < vars->s_map->burgers)
 		{
-			printf("You haven't picked up all the burgers yet!\n");
+			ft_printf("You haven't picked up all the burgers yet!\n");
 			return (0);
 		}
 		else
 		{
-			printf("\nYou won the game with %zu moves!\n", vars->moves);
-			printf("You picked up %zu burgers.\n", vars->pickups);
+			ft_printf("\nYou won the game with %u moves!\n", vars->moves);
+			ft_printf("You picked up %u burgers.\n", vars->pickups);
 			free_map(vars->s_map, "Relaunch the program to start a new game!");
 		}
 	}
@@ -81,7 +81,7 @@ void	after_move(t_game *d, int i, size_t bx, size_t by)
 	t_img	*ply;
 	size_t	overwrite;
 
-	printf("Total amount of moves: %zu\n", d->moves);
+	ft_printf("Total amount of moves: %u\n", d->moves);
 	ply = d->ply_img;
 	overwrite = 1;
 	if (i == 2 || i == 3)

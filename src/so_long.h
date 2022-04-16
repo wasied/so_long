@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:17 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 02:41:49 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/16 22:23:41 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 /* Our libraries */
 # include "mlx.h"
 # include "../get_next_line/get_next_line.h"
+# include "../ft_printf/ft_printf.h"
 
 /* Our structures */
 

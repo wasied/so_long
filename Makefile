@@ -4,7 +4,8 @@ FLAGS	=	-Wall -Wextra -Werror
 
 MLX		=	mlx
 SRC		=	src/main.c src/surface.c src/map.c src/utils.c src/player.c src/math.c src/extra.c \
-			get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
+			get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
+			ft_printf/ft_printf.c ft_printf/ft_putnbr_base.c ft_printf/ft_types.c ft_printf/ft_utils.c
 OBJ		=	$(SRC:.c=.o)
 
 %.o: %.c

@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:27 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 02:15:50 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/16 22:26:26 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	main(void)
 	parse_map(&map, "test.ber");
 	if (!map.map)
 	{
-		printf("Map is somehow invalid!");
+		ft_printf("Map is somehow invalid!");
 		return (0);
 	}
 	d.mlxp = mlx_init();
