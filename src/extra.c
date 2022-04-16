@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 02:10:03 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 02:44:37 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/16 22:48:50 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ void	initialize_map(t_map *map, size_t *width, size_t *tall, size_t *y)
 	map->h = *tall;
 	if (check_walls(map) == 0)
 	{
-		free_map(map, "Map must be surrounded by walls only! Aborting.");
+		free_map(map, "Map must be surrounded by walls only!", 1);
 		return ;
 	}
 	map->burgers = count_items(map, 'C');
 	if (map->burgers <= 0)
-		free_map(map, "Map need at least 1 burger! Aborting.");
+		free_map(map, "Map need at least 1 burger!", 1);
 	if (count_items(map, 'E') <= 0)
-		free_map(map, "Map need at least 1 exit! Aborting.");
+		free_map(map, "Map need at least 1 exit!", 1);
 	if (count_items(map, 'P') <= 0)
-		free_map(map, "Map need at least 1 start pos! Aborting.");
+		free_map(map, "Map need at least 1 start pos!", 1);
 }
 
 /* Callback called in a loop in map.c (norminette :()
@@ -75,13 +75,13 @@ int	loop_map_initialize(t_map *map, int fd, size_t *width, size_t *y)
 		*width = ft_strlen(line);
 	if (*width != ft_strlen(line) || *width < 3)
 	{
-		free_map(map, "Map must be a rectangle! Aborting.");
+		free_map(map, "Map must be a rectangle!", 1);
 		return (1);
 	}
 	map->map[*y] = ft_strdup(line);
 	if (!map->map[*y])
 	{
-		free_map(map, "A memory error has occured! Aborting.");
+		free_map(map, "A memory error has occured!", 1);
 		return (1);
 	}
 	(*y)++;

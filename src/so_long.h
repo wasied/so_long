@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:17 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 22:23:41 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/16 22:40:33 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_img	draw_mat(t_mlx_data d, size_t x, size_t y, char *path);
 
 /*** map.c ***/
 void	parse_map(t_map *map, const char *path);
-void	free_map(t_map *map, char *message);
+void	free_map(t_map *map, char *message, int error);
 int		check_walls(t_map *map);
 int		count_items(t_map *map, char c);
 

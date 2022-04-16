@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:26 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 22:26:26 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/17 00:24:23 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	count_lines(const char *path)
 @param map -> t_map structure pointer
 @param message -> the message to print when exited
 */
-void	free_map(t_map *map, char *message)
+void	free_map(t_map *map, char *message, int error)
 {
 	size_t	i;
 
@@ -47,7 +47,10 @@ void	free_map(t_map *map, char *message)
 	while (map->map[i])
 		free(map->map[i++]);
 	free(map->map);
-	ft_printf("%s\n", message);
+	if (error == 0)
+		ft_printf("%s\n", message);
+	else
+		ft_printf("Error\n%s\n", message);
 	exit(0);
 }
 

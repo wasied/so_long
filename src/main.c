@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:27 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 22:26:26 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/17 00:25:34 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 */
 int	stop_game(t_game *vars)
 {
-	free_map(vars->s_map, "Thanks for playing Burger King!");
 	mlx_destroy_window(vars->mlxdat->mlxp, vars->mlxdat->winp);
+	free_map(vars->s_map, "Thanks for playing Burger King!", 0);
 	return (0);
 }
 
@@ -112,7 +112,7 @@ int	main(void)
 	parse_map(&map, "test.ber");
 	if (!map.map)
 	{
-		ft_printf("Map is somehow invalid!");
+		printf("Error\nThe map in the .ber is invalid!");
 		return (0);
 	}
 	d.mlxp = mlx_init();

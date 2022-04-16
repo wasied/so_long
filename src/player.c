@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:21 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 22:27:35 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/16 22:43:23 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	pickup_item(t_game *vars, int itemid)
 		{
 			ft_printf("\nYou won the game with %u moves!\n", vars->moves);
 			ft_printf("You picked up %u burgers.\n", vars->pickups);
-			free_map(vars->s_map, "Relaunch the program to start a new game!");
+			free_map(vars->s_map, "Relaunch the program to start a new game!", 0);
 		}
 	}
 	return (1);
