@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:27 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 02:01:32 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/16 02:15:50 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,16 +117,8 @@ int	main(void)
 	}
 	d.mlxp = mlx_init();
 	d.winp = mlx_new_window(d.mlxp, map.w * 50, map.h * 50, "Burger King");
-	d.color = 0x003498db;
-	d.w = map.w * 50;
-	d.h = map.h * 50;
-	background = draw_rect(d, 0, 0);
-	map.s_img = &background;
-	stream.mlxdat = &d;
-	stream.s_map = &map;
+	initialize_game(&d, &map, &background, &stream);
 	stream.ply_img = &player;
-	stream.pickups = 0;
-	stream.moves = 0;
 	generate_items(&stream);
 	mlx_hook(d.winp, 2, 1, button_pressed, &stream);
 	mlx_hook(d.winp, 17, 1, stop_game, &stream);

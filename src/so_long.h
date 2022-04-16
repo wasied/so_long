@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:17 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 01:40:19 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/16 02:41:49 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ t_img	draw_mat(t_mlx_data d, size_t x, size_t y, char *path);
 /*** map.c ***/
 void	parse_map(t_map *map, const char *path);
 void	free_map(t_map *map, char *message);
+int		check_walls(t_map *map);
+int		count_items(t_map *map, char c);
 
 /*** utils.c ***/
 char	*ft_strdup(const char *str);
@@ -90,5 +92,10 @@ int		can_player_go(t_game *vars, size_t x, size_t y);
 int		get_min(int uno, int dos);
 int		get_min(int uno, int dos);
 int		clamp(int value, int min, int max);
+
+/*** extra.c ***/
+void	initialize_game(t_mlx_data *d, t_map *map, t_img *bg, t_game *game);
+void	initialize_map(t_map *map, size_t *width, size_t *tall, size_t *y);
+int		loop_map_initialize(t_map *map, int fd, size_t *width, size_t *y);
 
 #endif
