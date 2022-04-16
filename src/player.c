@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:21 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 01:40:53 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/16 01:59:21 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,40 @@ int	can_player_go(t_game *vars, size_t x, size_t y)
 	return (0);
 }
 
+/* Called after player has made a move (norminette :()
+@param d -> pointing to the t_game structure
+@param i -> the value that can_player_go returned
+@param x -> x-coord of the old player pos
+@param y -> y-coord of the old player pos
+*/
+void	after_move(t_game *d, int i, size_t bx, size_t by)
+{
+	t_img	*ply;
+	size_t	overwrite;
+
+	printf("Total amount of moves: %zu\n", d->moves);
+	ply = d->ply_img;
+	overwrite = 1;
+	if (i == 2 || i == 3)
+		overwrite = pickup_item(d, i);
+	d->mlxdat->color = d->s_map->s_img->color;
+	d->mlxdat->w = ply->w;
+	d->mlxdat->h = ply->h;
+	if (i != 1 && overwrite == 1)
+	{	
+		draw_rect(*d->mlxdat, ply->x, ply->y);
+		d->s_map->map[ply->y / 50][ply->x / 50] = '0';
+	}
+	if (d->s_map->map[by / 50][bx / 50] == 'E')
+	{
+		draw_rect(*d->mlxdat, bx, by);
+		draw_mat(*d->mlxdat, bx, by, "./assets/hospital.xpm");
+	}
+	else
+		draw_rect(*d->mlxdat, bx, by);
+	*d->ply_img = draw_mat(*d->mlxdat, ply->x, ply->y, "./assets/fat.xpm");
+}
+
 /* Called when a player moves in a direction 
 @param direction -> 0 (left), 1 (up), 2 (right), 3 (bottom)
 */
@@ -79,7 +113,6 @@ void	player_move(t_game *d, int direction)
 	size_t	bx;
 	size_t	by;
 	int		i;
-	int		overwrite;
 
 	ply = d->ply_img;
 	bx = ply->x;
@@ -100,24 +133,5 @@ void	player_move(t_game *d, int direction)
 		return ;
 	}
 	d->moves++;
-	printf("Total amount of moves: %zu\n", d->moves);
-	overwrite = 1;
-	if (i == 2 || i == 3)
-		overwrite = pickup_item(d, i);
-	d->mlxdat->color = d->s_map->s_img->color;
-	d->mlxdat->w = ply->w;
-	d->mlxdat->h = ply->h;
-	if (i != 1 && overwrite == 1)
-	{	
-		draw_rect(*d->mlxdat, ply->x, ply->y);
-		d->s_map->map[ply->y / 50][ply->x / 50] = '0';
-	}
-	if (d->s_map->map[by / 50][bx / 50] == 'E')
-	{
-		draw_rect(*d->mlxdat, bx, by);
-		draw_mat(*d->mlxdat, bx, by, "./assets/hospital.xpm");
-	}
-	else
-		draw_rect(*d->mlxdat, bx, by);
-	*d->ply_img = draw_mat(*d->mlxdat, ply->x, ply->y, "./assets/fat.xpm");
+	after_move(d, i, bx, by);
 }

@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:27 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 01:40:19 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/16 02:01:32 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 */
 int	stop_game(t_game *vars)
 {
-	free_map(vars->s_map, "Thanks for playing The Burger King!");
+	free_map(vars->s_map, "Thanks for playing Burger King!");
 	mlx_destroy_window(vars->mlxdat->mlxp, vars->mlxdat->winp);
 	return (0);
 }

@@ -6,11 +6,28 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:29 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 01:34:16 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/16 02:00:05 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+/* Initialize the rectangle structure
+@param data -> t_mlx_data structure
+@param im -> t_img structure
+@param x -> the X position of the upper-left pixel of the rectangle
+@param y -> the Y position of the upper-left pixel of the rectangle
+*/
+void	initialize_rect(t_mlx_data *d, t_img *im, size_t x, size_t y)
+{
+	im->x = x;
+	im->y = y;
+	im->w = d->w;
+	im->h = d->h;
+	im->image = mlx_new_image(d->mlxp, d->w, d->h);
+	im->data = mlx_get_data_addr(im->image, &im->bpp, &im->l_len, &im->endian);
+	im->color = mlx_get_color_value(d->mlxp, d->color);
+}
 
 /* Draw a rectangle with a specific image
 @param data -> t_mlx_data structure
@@ -25,13 +42,7 @@ t_img	draw_rect(t_mlx_data d, size_t x, size_t y)
 	size_t	pos_x;
 	size_t	pixel;
 
-	img.x = x;
-	img.y = y;
-	img.w = d.w;
-	img.h = d.h;
-	img.image = mlx_new_image(d.mlxp, d.w, d.h);
-	img.data = mlx_get_data_addr(img.image, &img.bpp, &img.l_len, &img.endian);
-	img.color = mlx_get_color_value(d.mlxp, d.color);
+	initialize_rect(&d, &img, x, y);
 	pos_y = 0;
 	while (pos_y < d.h)
 	{
