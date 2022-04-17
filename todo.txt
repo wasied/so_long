@@ -1,2 +1,1 @@
 -> Image freeing
--> Testing leaks & replacing malloc by NULL
