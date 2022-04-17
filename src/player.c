@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:21 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 22:43:23 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/17 01:19:22 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 @return int:
 	0 = do not use the default overwriting image
 	1 = use the default overwriting image
+	2 = stop everything
 */
 int	pickup_item(t_game *vars, int itemid)
 {
@@ -36,7 +37,8 @@ int	pickup_item(t_game *vars, int itemid)
 		{
 			ft_printf("\nYou won the game with %u moves!\n", vars->moves);
 			ft_printf("You picked up %u burgers.\n", vars->pickups);
-			free_map(vars->s_map, "Relaunch the program to start a new game!", 0);
+			stop_game(vars);
+			return (2);
 		}
 	}
 	return (1);
@@ -86,6 +88,8 @@ void	after_move(t_game *d, int i, size_t bx, size_t by)
 	overwrite = 1;
 	if (i == 2 || i == 3)
 		overwrite = pickup_item(d, i);
+	if (overwrite == 2)
+		return ;
 	d->mlxdat->color = d->s_map->s_img->color;
 	d->mlxdat->w = ply->w;
 	d->mlxdat->h = ply->h;
