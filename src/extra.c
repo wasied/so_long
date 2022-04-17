@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 02:10:03 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/17 04:00:35 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/17 04:26:05 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	initialize_game(t_mlx_data *d, t_map *map, t_img *bg, t_game *game)
 	d->color = 0x003498db;
 	d->w = map->w * 50;
 	d->h = map->h * 50;
-	*bg = draw_rect(*d, 0, 0);
-	game->walls_imgptr = NULL;
-	game->exit_imgptr = NULL;
-	game->burger_imgptr = NULL;
-	game->bg_imgptr = bg->image;
+	*bg = drect(*d, 0, 0);
+	game->wl = NULL;
+	game->ex = NULL;
+	game->br = NULL;
+	game->bg = bg->img;
 	map->s_img = bg;
-	game->mlxdat = d;
+	game->mlx = d;
 	game->s_map = map;
 	game->pickups = 0;
 	game->moves = 0;
@@ -90,4 +90,18 @@ int	loop_map_initialize(t_map *map, int fd, size_t *width, size_t *y)
 	}
 	(*y)++;
 	return (0);
+}
+
+/* Callback called in a loop in main.c (fuck norminette omfg)
+@param g -> t_game structure
+@param c -> the character passed to the loop
+@param x -> size_t pointer describing the x position
+@param y -> size_t pointer describing the y position
+*/
+void	place_right_item(t_game *g, char c, size_t x, size_t y)
+{
+	if (c == '1')
+		rep(g, g->wl, dmat(*g->mlx, x * 50, y * 50, "./assets/wl.xpm").img);
+	else if (c == 'C')
+		rep(g, g->br, dmat(*g->mlx, x * 50, y * 50, "./assets/br.xpm").img);
 }

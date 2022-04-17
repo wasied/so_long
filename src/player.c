@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:21 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/17 04:03:56 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/17 04:19:33 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,22 +90,18 @@ void	after_move(t_game *d, int i, size_t bx, size_t by)
 		overwrite = pickup_item(d, i);
 	if (overwrite == 2)
 		return ;
-	d->mlxdat->color = d->s_map->s_img->color;
-	d->mlxdat->w = ply->w;
-	d->mlxdat->h = ply->h;
+	d->mlx->color = d->s_map->s_img->color;
+	d->mlx->w = ply->w;
+	d->mlx->h = ply->h;
 	if (i != 1 && overwrite == 1)
 	{	
-		replace_img(d, d->bg_imgptr, draw_rect(*d->mlxdat, ply->x, ply->y).image);
+		rep(d, d->bg, drect(*d->mlx, ply->x, ply->y).img);
 		d->s_map->map[ply->y / 50][ply->x / 50] = '0';
 	}
+	rep(d, d->bg, drect(*d->mlx, bx, by).img);
 	if (d->s_map->map[by / 50][bx / 50] == 'E')
-	{
-		replace_img(d, d->bg_imgptr, draw_rect(*d->mlxdat, bx, by).image);
-		replace_img(d, d->exit_imgptr, draw_mat(*d->mlxdat, bx, by, "./assets/hospital.xpm").image);
-	}
-	else
-		replace_img(d, d->bg_imgptr, draw_rect(*d->mlxdat, bx, by).image);
-	replace_img(d, d->ply_img, draw_mat(*d->mlxdat, ply->x, ply->y, "./assets/fat.xpm").image);
+		rep(d, d->ex, dmat(*d->mlx, bx, by, "./assets/ex.xpm").img);
+	rep(d, d->ply_img, dmat(*d->mlx, ply->x, ply->y, "./assets/ply.xpm").img);
 }
 
 /* Called when a player moves in a direction 

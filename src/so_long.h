@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:17 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/17 04:00:24 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/17 04:25:18 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_mlx_data {
 }	t_mlx_data;
 
 typedef struct s_img {
-	void			*image;
+	void			*img;
 	char			*data;
 	int				bpp;
 	int				l_len;
@@ -59,13 +59,13 @@ typedef struct s_map {
 typedef struct s_game {
 	t_img		*ply_img;
 	t_map		*s_map;
-	t_mlx_data	*mlxdat;
+	t_mlx_data	*mlx;
 	size_t		pickups;
 	size_t		moves;
-	void		*bg_imgptr;
-	void		*walls_imgptr;
-	void		*exit_imgptr;
-	void		*burger_imgptr;
+	void		*bg;
+	void		*wl;
+	void		*ex;
+	void		*br;
 }	t_game;
 
 /* Our prototypes */
@@ -76,9 +76,9 @@ void	get_item_pos(t_game *vars, char search, size_t *x_ptr, size_t *y_ptr);
 void	generate_items(t_game *vars);
 
 /*** surface.c ***/
-void	replace_img(t_game *d, void *already_init, void *new_img);
-t_img	draw_rect(t_mlx_data d, size_t x, size_t y);
-t_img	draw_mat(t_mlx_data d, size_t x, size_t y, char *path);
+void	rep(t_game *d, void *already_init, void *new_img);
+t_img	drect(t_mlx_data d, size_t x, size_t y);
+t_img	dmat(t_mlx_data d, size_t x, size_t y, char *path);
 
 /*** map.c ***/
 void	parse_map(t_map *map, const char *path);
@@ -103,5 +103,6 @@ int		clamp(int value, int min, int max);
 void	initialize_game(t_mlx_data *d, t_map *map, t_img *bg, t_game *game);
 void	initialize_map(t_map *map, size_t *width, size_t *tall, size_t *y);
 int		loop_map_initialize(t_map *map, int fd, size_t *width, size_t *y);
+void	place_right_item(t_game *g, char c, size_t x, size_t y);
 
 #endif

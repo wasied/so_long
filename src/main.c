@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:27 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/17 04:02:37 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/17 04:25:53 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 */
 int	stop_game(t_game *vars)
 {
-	mlx_destroy_window(vars->mlxdat->mlxp, vars->mlxdat->winp);
+	mlx_destroy_window(vars->mlx->mlxp, vars->mlx->winp);
 	free_map(vars->s_map, "Thanks for playing Burger King!", 0);
 	return (0);
 }
@@ -80,9 +80,9 @@ void	generate_items(t_game *g)
 	char	c;
 
 	get_item_pos(g, 'P', &x, &y);
-	*g->ply_img = draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/fat.xpm");
+	*g->ply_img = dmat(*g->mlx, x * 50, y * 50, "./assets/ply.xpm");
 	get_item_pos(g, 'E', &x, &y);
-	replace_img(g, g->exit_imgptr, draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/hospital.xpm").image);
+	rep(g, g->ex, dmat(*g->mlx, x * 50, y * 50, "./assets/ex.xpm").img);
 	y = 0;
 	while (y < g->s_map->h)
 	{
@@ -90,10 +90,7 @@ void	generate_items(t_game *g)
 		while (x < g->s_map->w)
 		{
 			c = g->s_map->map[y][x];
-			if (c == '1')
-				replace_img(g, g->walls_imgptr, draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/cucumber.xpm").image);
-			else if (c == 'C')
-				replace_img(g, g->burger_imgptr, draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/burger.xpm").image);
+			place_right_item(g, c, x, y);
 			x++;
 		}
 		y++;

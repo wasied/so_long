@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:29 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/17 04:06:07 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/17 04:22:46 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 @param already_init -> pointer to where the image is stored on our structs
 @param new_img -> pointer of the new image that has been created
 */
-void	replace_img(t_game *d, void *already_init, void *new_img)
+void	rep(t_game *d, void *already_init, void *new_img)
 {
 	if (already_init == NULL)
 		already_init = new_img;
 	else
 	{
-		mlx_destroy_image(d->mlxdat->mlxp, new_img);
+		mlx_destroy_image(d->mlx->mlxp, new_img);
 		new_img = already_init;
 	}
 }
@@ -40,8 +40,8 @@ void	initialize_rect(t_mlx_data *d, t_img *im, size_t x, size_t y)
 	im->y = y;
 	im->w = d->w;
 	im->h = d->h;
-	im->image = mlx_new_image(d->mlxp, d->w, d->h);
-	im->data = mlx_get_data_addr(im->image, &im->bpp, &im->l_len, &im->endian);
+	im->img = mlx_new_image(d->mlxp, d->w, d->h);
+	im->data = mlx_get_data_addr(im->img, &im->bpp, &im->l_len, &im->endian);
 	im->color = mlx_get_color_value(d->mlxp, d->color);
 }
 
@@ -51,7 +51,7 @@ void	initialize_rect(t_mlx_data *d, t_img *im, size_t x, size_t y)
 @param y -> the Y position of the upper-left pixel of the rectangle
 @return t_img -> the rectangle structure that has been generated
 */
-t_img	draw_rect(t_mlx_data d, size_t x, size_t y)
+t_img	drect(t_mlx_data d, size_t x, size_t y)
 {
 	t_img	img;
 	size_t	pos_y;
@@ -74,7 +74,7 @@ t_img	draw_rect(t_mlx_data d, size_t x, size_t y)
 		}
 		pos_y++;
 	}
-	mlx_put_image_to_window(d.mlxp, d.winp, img.image, x, y);
+	mlx_put_image_to_window(d.mlxp, d.winp, img.img, x, y);
 	return (img);
 }
 
@@ -85,15 +85,15 @@ t_img	draw_rect(t_mlx_data d, size_t x, size_t y)
 @param path -> the relative path of the texture
 @return t_img -> the rectangle structure that has been generated
 */
-t_img	draw_mat(t_mlx_data data, size_t x, size_t y, char *path)
+t_img	dmat(t_mlx_data data, size_t x, size_t y, char *path)
 {
 	t_img	mat;
 	int		w;
 
 	w = 0;
-	mat.image = mlx_xpm_file_to_image(data.mlxp, path, &w, &w);
-	mat.data = mlx_get_data_addr(mat.image, &mat.bpp, &mat.l_len, &mat.endian);
-	mlx_put_image_to_window(data.mlxp, data.winp, mat.image, x, y);
+	mat.img = mlx_xpm_file_to_image(data.mlxp, path, &w, &w);
+	mat.data = mlx_get_data_addr(mat.img, &mat.bpp, &mat.l_len, &mat.endian);
+	mlx_put_image_to_window(data.mlxp, data.winp, mat.img, x, y);
 	mat.x = x;
 	mat.y = y;
 	mat.w = w;
