@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:17 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/17 00:47:04 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/17 04:00:24 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ typedef struct s_game {
 	t_mlx_data	*mlxdat;
 	size_t		pickups;
 	size_t		moves;
+	void		*bg_imgptr;
+	void		*walls_imgptr;
+	void		*exit_imgptr;
+	void		*burger_imgptr;
 }	t_game;
 
 /* Our prototypes */
@@ -72,6 +76,7 @@ void	get_item_pos(t_game *vars, char search, size_t *x_ptr, size_t *y_ptr);
 void	generate_items(t_game *vars);
 
 /*** surface.c ***/
+void	replace_img(t_game *d, void *already_init, void *new_img);
 t_img	draw_rect(t_mlx_data d, size_t x, size_t y);
 t_img	draw_mat(t_mlx_data d, size_t x, size_t y, char *path);
 

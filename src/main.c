@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:27 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/17 00:25:34 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/17 04:02:37 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	generate_items(t_game *g)
 	get_item_pos(g, 'P', &x, &y);
 	*g->ply_img = draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/fat.xpm");
 	get_item_pos(g, 'E', &x, &y);
-	draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/hospital.xpm");
+	replace_img(g, g->exit_imgptr, draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/hospital.xpm").image);
 	y = 0;
 	while (y < g->s_map->h)
 	{
@@ -91,9 +91,9 @@ void	generate_items(t_game *g)
 		{
 			c = g->s_map->map[y][x];
 			if (c == '1')
-				draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/cucumber.xpm");
+				replace_img(g, g->walls_imgptr, draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/cucumber.xpm").image);
 			else if (c == 'C')
-				draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/burger.xpm");
+				replace_img(g, g->burger_imgptr, draw_mat(*g->mlxdat, x * 50, y * 50, "./assets/burger.xpm").image);
 			x++;
 		}
 		y++;

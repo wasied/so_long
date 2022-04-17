@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:21 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/17 01:19:22 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/17 04:03:56 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,17 +95,17 @@ void	after_move(t_game *d, int i, size_t bx, size_t by)
 	d->mlxdat->h = ply->h;
 	if (i != 1 && overwrite == 1)
 	{	
-		draw_rect(*d->mlxdat, ply->x, ply->y);
+		replace_img(d, d->bg_imgptr, draw_rect(*d->mlxdat, ply->x, ply->y).image);
 		d->s_map->map[ply->y / 50][ply->x / 50] = '0';
 	}
 	if (d->s_map->map[by / 50][bx / 50] == 'E')
 	{
-		draw_rect(*d->mlxdat, bx, by);
-		draw_mat(*d->mlxdat, bx, by, "./assets/hospital.xpm");
+		replace_img(d, d->bg_imgptr, draw_rect(*d->mlxdat, bx, by).image);
+		replace_img(d, d->exit_imgptr, draw_mat(*d->mlxdat, bx, by, "./assets/hospital.xpm").image);
 	}
 	else
-		draw_rect(*d->mlxdat, bx, by);
-	*d->ply_img = draw_mat(*d->mlxdat, ply->x, ply->y, "./assets/fat.xpm");
+		replace_img(d, d->bg_imgptr, draw_rect(*d->mlxdat, bx, by).image);
+	replace_img(d, d->ply_img, draw_mat(*d->mlxdat, ply->x, ply->y, "./assets/fat.xpm").image);
 }
 
 /* Called when a player moves in a direction 

@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 02:10:03 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 22:48:50 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/17 04:00:35 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ void	initialize_game(t_mlx_data *d, t_map *map, t_img *bg, t_game *game)
 	d->w = map->w * 50;
 	d->h = map->h * 50;
 	*bg = draw_rect(*d, 0, 0);
+	game->walls_imgptr = NULL;
+	game->exit_imgptr = NULL;
+	game->burger_imgptr = NULL;
+	game->bg_imgptr = bg->image;
 	map->s_img = bg;
 	game->mlxdat = d;
 	game->s_map = map;

@@ -6,11 +6,27 @@
 /*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:29 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/16 02:00:05 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/17 04:06:07 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+/* Properly clear an image pointer and set a new image to the pointer
+@param d -> t_game structure
+@param already_init -> pointer to where the image is stored on our structs
+@param new_img -> pointer of the new image that has been created
+*/
+void	replace_img(t_game *d, void *already_init, void *new_img)
+{
+	if (already_init == NULL)
+		already_init = new_img;
+	else
+	{
+		mlx_destroy_image(d->mlxdat->mlxp, new_img);
+		new_img = already_init;
+	}
+}
 
 /* Initialize the rectangle structure
 @param data -> t_mlx_data structure
