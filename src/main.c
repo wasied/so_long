@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mpeharpr <mpeharpr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:27 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/17 04:25:53 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/18 18:57:14 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	generate_items(t_game *g)
 }
 
 /* The main function */
-int	main(void)
+int	main(int argc, char *argv[])
 {
 	t_mlx_data		d;
 	t_map			map;
@@ -106,12 +106,11 @@ int	main(void)
 	t_img			background;
 	t_game			stream;
 
-	parse_map(&map, "test.ber");
+	if (argc != 2)
+		return (ft_printf("Error\nYou need to use 1 argument (the map file)!\n"));
+	parse_map(&map, argv[1]);
 	if (!map.map)
-	{
-		printf("Error\nThe map in the .ber is invalid!");
-		return (0);
-	}
+		return (ft_printf("Error\nThe map in the .ber is invalid!\n"));
 	d.mlxp = mlx_init();
 	d.winp = mlx_new_window(d.mlxp, map.w * 50, map.h * 50, "Burger King");
 	initialize_game(&d, &map, &background, &stream);
