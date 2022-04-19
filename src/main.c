@@ -17,6 +17,14 @@
 */
 int	stop_game(t_game *vars)
 {
+	if (vars->bg != NULL)
+		mlx_destroy_image(vars->mlx->mlxp, vars->bg);
+	if (vars->wl != NULL)
+		mlx_destroy_image(vars->mlx->mlxp, vars->wl);
+	if (vars->ex != NULL)
+		mlx_destroy_image(vars->mlx->mlxp, vars->ex);
+	if (vars->br != NULL)
+		mlx_destroy_image(vars->mlx->mlxp, vars->br);
 	mlx_destroy_window(vars->mlx->mlxp, vars->mlx->winp);
 	free_map(vars->s_map, "Thanks for playing Burger King!", 0);
 	return (0);
