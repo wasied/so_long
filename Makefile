@@ -11,7 +11,7 @@ MLX_INCLUDE =	-lmlx -framework OpenGL -framework AppKit
 
 # This is all the source files we want to compile
 SRC_FOLDER	=	src/
-SRC_FILES	=	extra.c main.c map.c math.c player.c surface.c utils.c
+SRC_FILES	=	extra.c main.c map.c player.c surface.c utils.c
 OBJS		=	$(addprefix $(SRC_FOLDER), $(SRC_FILES:%.c=%.o))
 
 # This is other projects we want to include to our source files

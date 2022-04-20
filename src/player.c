@@ -118,13 +118,13 @@ void	player_move(t_game *d, int direction)
 	bx = ply->x;
 	by = ply->y;
 	if (direction == 0)
-		ply->x = clamp(ply->x - 50, 50, (d->s_map->w - 2) * 50);
+		ply->x = ply->x - 50;
 	else if (direction == 1)
-		ply->y = clamp(ply->y - 50, 50, (d->s_map->h - 2) * 50);
+		ply->y = ply->y - 50;
 	else if (direction == 2)
-		ply->x = clamp(ply->x + 50, 50, (d->s_map->w - 2) * 50);
+		ply->x = ply->x + 50;
 	else if (direction == 3)
-		ply->y = clamp(ply->y + 50, 50, (d->s_map->h - 2) * 50);
+		ply->y = ply->y + 50;
 	i = can_player_go(d, ply->x / 50, ply->y / 50);
 	if (i == 0)
 	{

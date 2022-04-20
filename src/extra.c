@@ -12,6 +12,29 @@
 
 #include "so_long.h"
 
+/* Called to check that all characters on the map are valids */
+int	all_characters_valid(t_map *map)
+{
+	size_t	y;
+	size_t	x;
+	char	c;
+
+	y = 0;
+	while (y < map->h)
+	{
+		x = 0;
+		while (x < map->w)
+		{
+			c = map->map[y][x];
+			if (c != '0' && c != '1' && c != 'C' && c != 'E' && c != 'P')
+				return (0);
+			x++;
+		}
+		y++;
+	}
+	return (1);
+}
+
 /* Called to initialize the game (norminette :()
 @param d -> t_mlx_data structure
 @param map -> t_map structure
@@ -46,6 +69,11 @@ void	initialize_map(t_map *map, size_t *width, size_t *tall, size_t *y)
 	map->map[*y] = NULL;
 	map->w = *width;
 	map->h = *tall;
+	if (all_characters_valid(map) == 0)
+	{
+		free_map(map, "The map is containing an invalid character!", 1);
+		return ;
+	}
 	if (check_walls(map) == 0)
 	{
 		free_map(map, "Map must be surrounded by walls only!", 1);
@@ -104,4 +132,6 @@ void	place_right_item(t_game *g, char c, size_t x, size_t y)
 		rep(g, g->wl, dmat(*g->mlx, x * 50, y * 50, "./assets/wl.xpm").img);
 	else if (c == 'C')
 		rep(g, g->br, dmat(*g->mlx, x * 50, y * 50, "./assets/br.xpm").img);
+	else if (c == 'E')
+		rep(g, g->ex, dmat(*g->mlx, x * 50, y * 50, "./assets/ex.xpm").img);
 }

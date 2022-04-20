@@ -89,8 +89,6 @@ void	generate_items(t_game *g)
 
 	get_item_pos(g, 'P', &x, &y);
 	*g->ply_img = dmat(*g->mlx, x * 50, y * 50, "./assets/ply.xpm");
-	get_item_pos(g, 'E', &x, &y);
-	rep(g, g->ex, dmat(*g->mlx, x * 50, y * 50, "./assets/ex.xpm").img);
 	y = 0;
 	while (y < g->s_map->h)
 	{

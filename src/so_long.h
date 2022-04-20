@@ -94,11 +94,6 @@ int		can_player_go(t_game *vars, size_t x, size_t y);
 void	player_move(t_game *vars, int direction);
 int		can_player_go(t_game *vars, size_t x, size_t y);
 
-/*** math.c ***/
-int		get_min(int uno, int dos);
-int		get_min(int uno, int dos);
-int		clamp(int value, int min, int max);
-
 /*** extra.c ***/
 void	initialize_game(t_mlx_data *d, t_map *map, t_img *bg, t_game *game);
 void	initialize_map(t_map *map, size_t *width, size_t *tall, size_t *y);
