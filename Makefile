@@ -1,26 +1,47 @@
-NAME	=	so_long
-CC	=	gcc
-FLAGS	=	-Wall -Wextra -Werror
+# so_long - A simple 2D game
+# Use this makefile to compile to game
 
-MLX		=	mlx
-SRC		=	src/main.c src/surface.c src/map.c src/utils.c src/player.c src/math.c src/extra.c \
-			get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
-			ft_printf/ft_printf.c ft_printf/ft_putnbr_base.c ft_printf/ft_types.c ft_printf/ft_utils.c
-OBJ		=	$(SRC:.c=.o)
+# Compile informations
+NAME		=	so_long
+SANIFLAG	=	-fsanitize=address -g
+FLAGS		=	-Wall -Wextra -Werror $(SANIFLAG)
 
+# This works only when mlx is loaded into the env (on school computers)
+MLX_INCLUDE =	-lmlx -framework OpenGL -framework AppKit
+
+# This is all the source files we want to compile
+SRC_FOLDER	=	src/
+SRC_FILES	=	extra.c main.c map.c math.c player.c surface.c utils.c
+OBJS		=	$(addprefix $(SRC_FOLDER), $(SRC_FILES:%.c=%.o))
+
+# This is other projects we want to include to our source files
+GNL_PATH	=	get_next_line/
+GNL_LIB		= 	$(GNL_PATH)get_next_line.a
+PRINTF_PATH =	ft_printf/
+PRINTF_LIB	=	$(PRINTF_PATH)libftprintf.a
+
+# Our compile rules
 %.o: %.c
-	$(CC) $(FLAGS) -D BUFFER_SIZE=1000 -I$(MLX) -c $< -o $@
+	gcc $(FLAGS) -c $< -o $@
 
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) -L$(MLX) -l$(MLX) -framework OpenGL -framework AppKit -o $(NAME)
+$(NAME): 	$(OBJS)
+	make -C $(GNL_PATH)
+	make -C $(PRINTF_PATH)
+	gcc $(FLAGS) $(OBJS) $(GNL_LIB) $(PRINTF_LIB) $(MLX_INCLUDE) -o $(NAME)
 
-all: $(NAME)
+# Here are mandatory rules
+all:		$(NAME)
 
 clean:
-	rm -rf $(OBJ)
+	rm -rf $(OBJS)
+	make clean -C $(GNL_PATH)
+	make clean -C $(PRINTF_PATH)
 
-
-fclean: clean
+fclean:		clean
 	rm -f $(NAME)
+	make fclean -C $(GNL_PATH)
+	make fclean -C $(PRINTF_PATH)
 
-re: fclean all
+re:			fclean all
+
+.PHONY:		all clean fclean re

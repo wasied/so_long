@@ -19,9 +19,9 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
+# include <mlx.h>
 
 /* Our libraries */
-# include "mlx.h"
 # include "../get_next_line/get_next_line.h"
 # include "../ft_printf/ft_printf.h"
 
