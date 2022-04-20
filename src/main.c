@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:27 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/18 18:57:14 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/20 11:06:28 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	stop_game(t_game *vars)
 */
 int	button_pressed(int keycode, t_game *vars)
 {
-	if (keycode == 6)
+	if (keycode == 13)
 		player_move(vars, 1);
 	else if (keycode == 1)
 		player_move(vars, 3);
