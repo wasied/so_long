@@ -1,3 +1,4 @@
 *.o
 so_long
 .DS_Store
+.gitignore
