@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpeharpr <mpeharpr@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mpeharpr <mpeharpr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:17 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/17 04:25:18 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/21 20:20:28 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int		count_items(t_map *map, char c);
 
 /*** utils.c ***/
 char	*ft_strdup(const char *str);
+int		ft_strcmp(const char *s1, const char *s2);
 
 /*** player.c ***/
 int		can_player_go(t_game *vars, size_t x, size_t y);

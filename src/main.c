@@ -6,7 +6,7 @@
 /*   By: mpeharpr <mpeharpr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:54:27 by mpeharpr          #+#    #+#             */
-/*   Updated: 2022/04/20 11:06:28 by mpeharpr         ###   ########.fr       */
+/*   Updated: 2022/04/21 20:23:49 by mpeharpr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 		return (ft_printf("Error\nYou need to use 1 argument (the map file)!\n"));
+	if (ft_strcmp(&argv[1][ft_strlen(argv[1]) - 4], ".ber") != 0)
+		return (ft_printf("Error\nThe file must finish by .ber!\n"));
 	parse_map(&map, argv[1]);
 	if (!map.map)
 		return (ft_printf("Error\nThe map in the .ber is invalid!\n"));
