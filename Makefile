@@ -1,5 +1,6 @@
 # so_long - A simple 2D game
 # Use this makefile to compile to game
+git@vogsphere-v2.s19.be:vogsphere/intra-uuid-f246dbe3-7d3e-4ff3-9be1-7eaaac381c61-4106139-mpeharpr
 
 # Compile informations
 NAME		=	so_long
